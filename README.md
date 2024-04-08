@@ -19,23 +19,23 @@ python ./pyfreecadexport.py -h
 | -p    | --parttype     | Type of the part(s) to export (e.g. PartDesign::Body) |
 | -d    | --directory    | Export Directory                                      |
 | -e    | --extension    | Extension of exported file(s) (e.g. .stl,.step)       |
-| -l    | --localization | Localization of FreeCAD.pyd                           |
+| -l    | --localization | Path to FreeCAD (FreeCAD.pyd/FreeCAD.so)              |
 | -v    | --verbose      | Verbose output                                        |
 
 ## CLI-Usage
 
 ``` bash
 # Export to folder: export format: stl
-/path/to/freecad/python export.py -f "housing.FCStd" -p "PartDesign::Body" -d "export" -e "stl" -l "path/to/freecad/pyd/bin"
+/path/to/freecad/python export.py -f "housing.FCStd" -p "PartDesign::Body" -d "export" -e "stl" -l "path/to/freecad/pyd_or_so/bin"
 
 # Export to folder: export format: step
-/path/to/freecad/python export.py -f "housing.FCStd" -p "PartDesign::Body" -d "export" -e "step" -l "path/to/freecad/pyd/bin"
+/path/to/freecad/python export.py -f "housing.FCStd" -p "PartDesign::Body" -d "export" -e "step" -l "path/to/freecad/pyd_or_so/bin"
 ```
 
 ## Python usage
 
 ``` python
-sys.path.append("/path/to/freecad/pyd")
+sys.path.append("/path/to/freecad/pyd_or_so")
 
 partexport = PartExport("/path/to/file.FCStd", "PartDesign::Body")
 partexport.export("./temp", ".stl")

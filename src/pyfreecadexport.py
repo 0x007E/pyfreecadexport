@@ -1,8 +1,6 @@
 import os, sys
 import argparse
 from pathlib import Path
-import FreeCAD
-import Part
 
 class PartExport:
     def __init__(self, filename: str, parttype: str):
@@ -73,8 +71,8 @@ def partexport_main(argv):
     argumentParser.add_argument("-p", "--parttype", required=True, help="Type of the part(s) to export (e.g. PartDesign::Body)")
     argumentParser.add_argument("-d", "--directory", required=True, help="Directory to export Parts")
     argumentParser.add_argument("-e", "--extension", required=True, help="Extension of exported file(s) (e.g. .stl,.step)")
-    argumentParser.add_argument("-l", "--localization", required=True, help="Localization of FreeCAD.pyd")
-    argumentParser.add_argument("-v", "--verbose", action="store_true", help="Show whats going on")
+    argumentParser.add_argument("-l", "--localization", required=True, help="Path to FreeCAD (FreeCAD.pyd/FreeCAD.so)")
+    argumentParser.add_argument("-v", "--verbose", action="store_false", help="Show whats going on")
     
     args = argumentParser.parse_args()
 
@@ -82,6 +80,9 @@ def partexport_main(argv):
         raise Exception("Localization path not found")
     
     sys.path.append(args.localization)
+    
+    import FreeCAD
+    import Part
 
     if(args.verbose):
         print(filename, "args=%s" % args)
@@ -90,10 +91,7 @@ def partexport_main(argv):
         os.makedirs(args.directory, exist_ok=True)
 
     partexport = PartExport(args.filename, args.parttype)
-
-    if(args.verbose):
-        partexport.verbose = True
-
+    partexport.verbose = args.verbose
     partexport.export(args.directory, args.extension)
 
 if __name__ == "__main__":
