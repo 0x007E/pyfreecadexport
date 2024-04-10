@@ -52,7 +52,7 @@ class PartExport:
         if(not extension):
             raise Exception("Extension is empty")
         
-        extension.replace(".","")
+        extension.replace(".", " ")
 
         for part in self.document.Objects:
 
