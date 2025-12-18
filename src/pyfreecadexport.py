@@ -54,14 +54,22 @@ class PartExport:
         
         extension.replace(".", " ")
 
-        for part in self.document.Objects:
+        for obj in self.document.Objects:
+            if obj.TypeId != self.parttype:
+                continue
+            if not hasattr(obj, "Shape"):
+                continue
+            if obj.Shape.isNull():
+                continue
+            if(self.verbose == True):
+                print("Part name/label/type:", obj.Name, obj.TypeId, obj.Label)
 
-            if(part.TypeId == self.parttype):
-                if(self.verbose == True):
-                    print("Part name/label/type:", part.Name, part.TypeId, part.Label)
-
-                filename = os.path.join(directory, (part.Label + "." + extension))
-                Part.export([part], filename)
+            try:
+                filename = os.path.join(directory, (obj.Label + "." + extension))
+                Part.export([obj], filename)
+            except Exception as e:
+                print("Export error for", obj.Name, obj.TypeId, ":", e)
+                raise
 
 def partexport_main(argv):
     filename = Path(__file__).name
