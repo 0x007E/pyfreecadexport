@@ -14,7 +14,7 @@ class PartExport:
         return self.__verbose
 
     @verbose.setter
-    def verbose(self, value) -> bool:
+    def verbose(self, value) -> None:
         self.__verbose = value
 
     @property
@@ -22,7 +22,7 @@ class PartExport:
         return self.__filename
 
     @filename.setter
-    def filename(self, value) -> str:
+    def filename(self, value) -> None:
         if(not value and not os.path.isfile(value)):
             raise Exception("Filename not found or empty -> " + value)
         self.__filename = value
@@ -40,14 +40,14 @@ class PartExport:
         return self.__parttype
 
     @parttype.setter
-    def parttype(self, value) -> str:
+    def parttype(self, value) -> None:
         if(not value):
             raise Exception("Value is empty -> " + value)
         self.__parttype = value
 
     def export(self, directory: str, extension: str, ):
         if(not os.path.exists(directory)):
-            raise Exception("File not found -> " + filename)
+            raise Exception("File not found -> " + self.filename)
 
         if(not extension):
             raise Exception("Extension is empty")

@@ -16,7 +16,7 @@ class SpreadsheetModify:
         return self.__verbose
 
     @verbose.setter
-    def verbose(self, value) -> bool:
+    def verbose(self, value) -> None:
         self.__verbose = value
 
     @property
@@ -24,7 +24,7 @@ class SpreadsheetModify:
         return self.__filename
 
     @filename.setter
-    def filename(self, value) -> str:
+    def filename(self, value) -> None:
         if(not value and not os.path.isfile(value)):
             raise Exception("Filename not found or empty -> " + value)
         self.__filename = value
@@ -42,7 +42,7 @@ class SpreadsheetModify:
         return self.__spreadsheet
 
     @spreadsheet.setter
-    def spreadsheet(self, value) -> str:
+    def spreadsheet(self, value) -> None:
         if(not value):
             raise Exception("Value is empty -> " + value)
         self.__spreadsheet = value
@@ -52,7 +52,7 @@ class SpreadsheetModify:
         return self.__alias
 
     @alias.setter
-    def alias(self, value) -> str:
+    def alias(self, value) -> None:
         if(not value):
             raise Exception("Value is empty -> " + value)
         self.__alias = value
@@ -62,7 +62,7 @@ class SpreadsheetModify:
         return self.__data
 
     @data.setter
-    def data(self, value) -> str:
+    def data(self, value) -> None:
         if(not value):
             raise Exception("Value is empty -> " + value)
         self.__data = value
